@@ -91,17 +91,23 @@ class Sudhanshu{
            }
            
            
-            while(arr[i].amount!=splitamount){
-                if(arr[left].amount<=arr[right].amount)
+            while(left<right){
+                if(arr[left].amount<arr[right].amount)
                 {
                     let canborrow=arr[right].amount - splitamount
                     let want=splitamount- arr[left].amount
 
                     if(want>canborrow){
                         arr[left].amount+=canborrow
-                        arr[right].amount=splitamount;
-                        ans=ans+ " owes from"  + arr[right].name + " amount-" + canborrow;
+                        arr[right].amount=arr[right].amount-canborrow;
+                        ans=ans+ " owes from "  + arr[right].name + " amount-" + canborrow;
                         right--;
+                    }
+                    else if(want==canborrow)
+                    {
+                        arr[left].amount=splitamount
+                        arr[right].amount=splitamount;
+                        ans=ans=ans+ " owes from "  + arr[right].name + " amount-" + canborrow;
                     }
                     else
                     {
@@ -111,11 +117,16 @@ class Sudhanshu{
                         break;
                     }
                 }
+                else
+                {
+                    right--;
+                }
 
             }
             splitarr.push(ans)
        }
        console.log(splitarr)
+       console.log("splitamount is --" + splitamount)
 
 
         
@@ -138,7 +149,7 @@ trip.addMember("shubhamm");
 
 
 trip.addExpenses("sudhanshu",30)
-trip.addExpenses("kundan",50)
+trip.addExpenses("kundan",30)
 trip.addExpenses("shubhamm",30)
 // trip.addExpenses("shubhamm",70)
 
